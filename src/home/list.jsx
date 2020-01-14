@@ -10,7 +10,8 @@ import './list.css'
 export default props => (
     <CustomCard
         containerClass='list-container'
-        footer={<ListFooter />} >
+        footer={<ListFooter />}
+        link='/list'>
         <div>
             <p className='card-title'>Month</p>
             <div className='list-card-body'>
