@@ -15,7 +15,8 @@ class Form extends React.Component {
         product: '',
         quantity: '',
         unit: '',
-        price: ''
+        price: '',
+        showErrors: false,
     }
 
     handleChange = (event) => {
@@ -24,7 +25,19 @@ class Form extends React.Component {
 
     handleSubmit = () => {
         const { list, product, quantity, unit, price } = this.state
-        this.props.addProduct({ product, quantity, unit, price }, list)
+        if (!list || !product || !quantity || !unit) {
+            this.setState({ showErrors: true })
+        } else {
+            this.props.addProduct({ product, quantity, unit, price }, list)
+            this.setState({
+                list: '',
+                product: '',
+                quantity: '',
+                unit: '',
+                price: '',
+                showErrors: false,
+            })
+        }
     }
 
     render() {
@@ -37,6 +50,7 @@ class Form extends React.Component {
                         value={this.state.list}
                         required
                         onChange={this.handleChange}
+                        error={!this.state.list && this.state.showErrors}
                     />
                     <Button variant='outlined' color='secondary' onClick={this.handleSubmit}>Add</Button>
                 </div>
@@ -46,6 +60,7 @@ class Form extends React.Component {
                         label="Product"
                         value={this.state.product}
                         required
+                        error={!this.state.product && this.state.showErrors}
                         onChange={this.handleChange}
                     />
                     <TextField
@@ -53,6 +68,7 @@ class Form extends React.Component {
                         label="Quantity"
                         value={this.state.quantity}
                         required
+                        error={!this.state.quantity && this.state.showErrors}
                         onChange={this.handleChange}
                     />
                     <TextField
@@ -60,6 +76,7 @@ class Form extends React.Component {
                         label="Unit"
                         value={this.state.unit}
                         required
+                        error={!this.state.unit && this.state.showErrors}
                         onChange={this.handleChange}
                     >
                         {units.map((option) => (
