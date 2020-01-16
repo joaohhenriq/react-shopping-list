@@ -15,8 +15,8 @@ export default props => (
         <div>
             <p className='card-title'>{props.list}</p>
             <div className='list-card-body'>
-                <ListItem icon={faShoppingBasket} text='1 item(s) left' />
-                <ListItem icon={faCheck} text='2 item(s) bought' />
+                <ListItem icon={faShoppingBasket} text={`${props.openedItems} item(s) left`} />
+                <ListItem icon={faCheck} text={`${props.closedItems} item(s) bought`} />
             </div>
         </div>
     </CustomCard>
