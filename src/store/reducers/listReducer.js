@@ -1,3 +1,4 @@
+import { createSelector } from 'reselect'
 import { Types } from '../actions/listAction'
 
 const INITIAL_STATE = {
@@ -24,3 +25,9 @@ export default function listReducer(state = INITIAL_STATE, action) {
 function getItemTotal(product) {
     return product.price * product.quantity
 }
+
+//selector avoids call the method every time, just executes when state list item is modified
+export const getListTotal = createSelector(
+    state => state.list.items, //based on items, just executes the function when items are modified
+    items => items.reduce((total, item) => total + item.total, 0)
+)
