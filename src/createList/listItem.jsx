@@ -14,7 +14,9 @@ const ListItem = props => (
         <div>
             <div className='list-item-header'>
                 <Typography variant='subtitle1' component='h2'>{props.item.product}</Typography>
-                <Checkbox />
+                <Checkbox
+                    checked={props.item.checked}
+                    onClick={() => props.toggleProduct(props.item.id)} />
             </div>
             <Typography component='p'>{props.item.quantity}</Typography>
             <Typography component='p'>R$ {props.item.price}</Typography>
