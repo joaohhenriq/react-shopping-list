@@ -11,9 +11,16 @@ export default function listReducer(state = INITIAL_STATE, action) {
             return {
                 ...state,
                 list: action.list,
-                items: [...state.items, action.product]
+                items: [
+                    ...state.items,
+                    { ...action.product, total: getItemTotal(action.product) }
+                ]
             }
         default:
             return state
     }
+}
+
+function getItemTotal(product) {
+    return product.price * product.quantity
 }

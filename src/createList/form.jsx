@@ -30,7 +30,6 @@ class Form extends React.Component {
         } else {
             this.props.addProduct({ product, quantity, unit, price }, list)
             this.setState({
-                list: '',
                 product: '',
                 quantity: '',
                 unit: '',
