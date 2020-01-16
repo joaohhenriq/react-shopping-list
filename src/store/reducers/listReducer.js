@@ -45,7 +45,7 @@ function getItemTotal(product) {
 
 function toggleItem(items, productId) {
     //First we find the item(to check) index
-    const index = items.findIndex(item => item.id = productId)
+    const index = items.findIndex(item => item.id === productId)
     return [
         ...items.slice(0, index), //keep the items starting on the index 0 until the item we have to check
         { ...items[index], checked: !items[index].checked }, //keeps all the item information, and change only the atributte checked
