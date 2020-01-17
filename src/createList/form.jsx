@@ -1,10 +1,13 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem'
 import Button from '@material-ui/core/Button'
 import { InputAdornment } from '@material-ui/core';
 
+import { Creators as FormAction } from '../store/actions/formAction'
 
 const units = ['kg', 'lt', 'un']
 
@@ -17,6 +20,21 @@ class Form extends React.Component {
         unit: '',
         price: '',
         showErrors: false,
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.form.action === 'update'
+            && prevProps.form.productToUpdate !== this.props.form.productToUpdate) {
+
+            const { product, quantity, unit, price } = this.props.form.productToUpdate
+            this.setState({
+                product,
+                quantity,
+                unit,
+                price,
+                showErrors: false,
+            })
+        }
     }
 
     handleChange = (event) => {
@@ -97,4 +115,7 @@ class Form extends React.Component {
     }
 }
 
-export default Form
+const mapStateToProps = state => ({ form: state.form })
+const mapDispatchToProps = dispatch => bindActionCreators(FormAction, dispatch)
+
+export default connect(mapStateToProps, mapDispatchToProps)(Form)
