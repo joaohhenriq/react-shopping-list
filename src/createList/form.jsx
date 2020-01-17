@@ -22,6 +22,7 @@ class Form extends React.Component {
         showErrors: false,
     }
 
+    // handles component update after it has already been mounted
     componentDidUpdate(prevProps) {
         if (this.props.form.action === 'update'
             && prevProps.form.productToUpdate !== this.props.form.productToUpdate) {
@@ -46,15 +47,32 @@ class Form extends React.Component {
         if (!list || !product || !quantity || !unit) {
             this.setState({ showErrors: true })
         } else {
-            this.props.addProduct({ product, quantity, unit, price }, list)
-            this.setState({
-                product: '',
-                quantity: '',
-                unit: '',
-                price: '',
-                showErrors: false,
-            })
+            this.props.form.action === 'new'
+                ? this.addItem(list, product, quantity, unit, price)
+                : this.updateItem(list, product, quantity, unit, price)
         }
+    }
+
+    addItem = (list, product, quantity, unit, price) => {
+        this.props.addProduct({ product, quantity, unit, price }, list)
+        this.clearState()
+    }
+
+    updateItem = (list, product, quantity, unit, price) => {
+        const { id, checked } = this.props.form.productToUpdate
+        this.props.updateProduct({ product, quantity, unit, price, id, checked }, list)
+        this.clearState()
+        this.props.finishUpdate()
+    }
+
+    clearState = () => {
+        this.setState({
+            product: '',
+            quantity: '',
+            unit: '',
+            price: '',
+            showErrors: false,
+        })
     }
 
     render() {
@@ -69,7 +87,7 @@ class Form extends React.Component {
                         onChange={this.handleChange}
                         error={!this.state.list && this.state.showErrors}
                     />
-                    <Button variant='outlined' color='secondary' onClick={this.handleSubmit}>Add</Button>
+                    <Button variant='outlined' color='secondary' onClick={this.handleSubmit}>Save</Button>
                 </div>
                 <div className='form-row'>
                     <TextField

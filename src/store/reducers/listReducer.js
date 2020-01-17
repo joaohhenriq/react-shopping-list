@@ -34,6 +34,12 @@ export default function listReducer(state = INITIAL_STATE, action) {
                 ...state,
                 items: toggleItem(state.items, action.productId)
             }
+        case Types.UPDATE_PRODUCT:
+            return {
+                ...state,
+                list: action.list,
+                items: updateProduct(state.items, action.product)
+            }
         default:
             return state
     }
@@ -50,6 +56,15 @@ function toggleItem(items, productId) {
         ...items.slice(0, index), //keep the items starting on the index 0 until the item we have to check
         { ...items[index], checked: !items[index].checked }, //keeps all the item information, and change only the atributte checked
         ...items.slice(index + 1) //keeps the rest of the list unmodified, changing only the item we needed
+    ]
+}
+
+function updateProduct(items, product) {
+    const index = items.findIndex(item => item.id === product.id)
+    return [
+        ...items.slice(0, index),
+        { ...product, total: getItemTotal(product) },
+        ...items.slice(index + 1)
     ]
 }
 

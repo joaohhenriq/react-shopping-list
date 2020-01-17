@@ -13,6 +13,12 @@ export default function form(state = INITIAL_STATE, action) {
                 action: 'update',
                 productToUpdate: action.product
             }
+        case Types.FINISH_UPDATE:
+            return {
+                ...state,
+                action: 'new',
+                productToUpdate: {}
+            }
         default:
             return { ...state }
     }
