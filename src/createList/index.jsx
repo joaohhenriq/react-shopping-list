@@ -6,6 +6,7 @@ import './list.css'
 
 import Form from './form'
 import ListItem from './listItem'
+import NewItem from './newItem'
 import { Creators as ListAction } from '../store/actions/listAction'
 
 class CreateList extends React.Component {
@@ -32,6 +33,10 @@ class CreateList extends React.Component {
                             toggleProduct={this.props.toggleProduct}
                         />
                     )}
+                    {
+                        this.props.match.params.action === 'edit' &&
+                        <NewItem list={this.props.list.list} />
+                    }
                 </div>
             </div>
         )
