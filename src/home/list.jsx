@@ -11,7 +11,7 @@ export default props => (
     <CustomCard
         containerClass='list-container'
         footer={<ListFooter total={props.total} />}
-        link='/list'>
+        link='/list/edit'>
         <div>
             <p className='card-title'>{props.list}</p>
             <div className='list-card-body'>

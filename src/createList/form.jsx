@@ -29,6 +29,7 @@ class Form extends React.Component {
 
             const { product, quantity, unit, price } = this.props.form.productToUpdate
             this.setState({
+                list: this.props.form.listToUpdate,
                 product,
                 quantity,
                 unit,
@@ -76,64 +77,70 @@ class Form extends React.Component {
     }
 
     render() {
-        return (
-            <form className='form-container'>
-                <div className='form-row'>
-                    <TextField
-                        name='list'
-                        label="List"
-                        value={this.state.list}
-                        required
-                        onChange={this.handleChange}
-                        error={!this.state.list && this.state.showErrors}
-                    />
-                    <Button variant='outlined' color='secondary' onClick={this.handleSubmit}>Save</Button>
-                </div>
-                <div className='form-row'>
-                    <TextField
-                        name='product'
-                        label="Product"
-                        value={this.state.product}
-                        required
-                        error={!this.state.product && this.state.showErrors}
-                        onChange={this.handleChange}
-                    />
-                    <TextField
-                        name='quantity'
-                        label="Quantity"
-                        value={this.state.quantity}
-                        required
-                        error={!this.state.quantity && this.state.showErrors}
-                        onChange={this.handleChange}
-                    />
-                    <TextField
-                        name='unit'
-                        label="Unit"
-                        value={this.state.unit}
-                        required
-                        error={!this.state.unit && this.state.showErrors}
-                        onChange={this.handleChange}
-                    >
-                        {units.map((option) => (
-                            <MenuItem key={option}>{option}</MenuItem>
-                        ))}
-                    </TextField>
-                    <TextField
-                        name='price'
-                        label="Price"
-                        value={this.state.price}
-                        onChange={this.handleChange}
-                        InputProps={{
-                            startAdornment: <InputAdornment position='start'>R$</InputAdornment>
-                        }}
-                    />
-                </div>
-            </form>
-        )
+        if (!this.props.showForm) {
+            return <div></div>
+        } else
+            return (
+                <form className='form-container'>
+                    <div className='form-row'>
+                        <TextField
+                            name='list'
+                            label="List"
+                            value={this.state.list}
+                            required
+                            onChange={this.handleChange}
+                            error={!this.state.list && this.state.showErrors}
+                        />
+                        <Button variant='outlined' color='secondary' onClick={this.handleSubmit}>Save</Button>
+                    </div>
+                    <div className='form-row'>
+                        <TextField
+                            name='product'
+                            label="Product"
+                            value={this.state.product}
+                            required
+                            error={!this.state.product && this.state.showErrors}
+                            onChange={this.handleChange}
+                        />
+                        <TextField
+                            name='quantity'
+                            label="Quantity"
+                            value={this.state.quantity}
+                            required
+                            error={!this.state.quantity && this.state.showErrors}
+                            onChange={this.handleChange}
+                        />
+                        <TextField
+                            name='unit'
+                            label="Unit"
+                            value={this.state.unit}
+                            required
+                            error={!this.state.unit && this.state.showErrors}
+                            onChange={this.handleChange}
+                        >
+                            {units.map((option) => (
+                                <MenuItem key={option}>{option}</MenuItem>
+                            ))}
+                        </TextField>
+                        <TextField
+                            name='price'
+                            label="Price"
+                            value={this.state.price}
+                            onChange={this.handleChange}
+                            InputProps={{
+                                startAdornment: <InputAdornment position='start'>R$</InputAdornment>
+                            }}
+                        />
+                    </div>
+                </form>
+            )
     }
 }
 
-const mapStateToProps = state => ({ form: state.form })
+const mapStateToProps = (state, ownProps) => ({
+    form: state.form,
+    showForm: state.form.action === 'update' || ownProps.url === 'new'
+})
 const mapDispatchToProps = dispatch => bindActionCreators(FormAction, dispatch)
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form)

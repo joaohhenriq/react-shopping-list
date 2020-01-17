@@ -10,7 +10,7 @@ const ListItemFooter = props => (
     <div className='list-item-footer'>
         <div className='list-card-footer-action'>
             <FontAwesomeIcon
-                onClick={() => props.startUpdate(props.item)}
+                onClick={() => props.startUpdate(props.list, props.item)}
                 icon={faPen} color='#2aa4f5' size='1x' />
             <FontAwesomeIcon
                 onClick={() => props.deleteProduct(props.item.id)}

@@ -20,10 +20,12 @@ class CreateList extends React.Component {
                 <Form
                     addProduct={this.addProduct}
                     updateProduct={this.props.updateProduct}
+                    url={this.props.match.params.action}
                 />
                 <div className='list-items-container'>
                     {this.props.list.items.map(item =>
                         <ListItem
+                            list={this.props.list.list}
                             key={item.id}
                             item={item}
                             deleteProduct={this.props.deleteProduct}

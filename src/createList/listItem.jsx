@@ -10,8 +10,13 @@ const ListItem = props => (
         link='#'
         image='https://images2.minutemediacdn.com/image/upload/c_fill,g_auto,h_1248,w_2220/f_auto,q_auto,w_1100/v1555306143/shape/mentalfloss/istock_43355764_small.jpg'
         containerClass='list-item'
-        footer={<ListItemFooter item={props.item} deleteProduct={props.deleteProduct}
-        />}
+        footer={
+            <ListItemFooter
+                list={props.list}
+                item={props.item}
+                deleteProduct={props.deleteProduct}
+            />
+        }
         action={() => props.toggleProduct(props.item.id)}
     >
         <div>
