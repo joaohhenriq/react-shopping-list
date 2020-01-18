@@ -1,3 +1,7 @@
+# Shopping List
+Shopping list application, using React JS, Redux (Saga), Material UI, CSS Flexbox.
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
