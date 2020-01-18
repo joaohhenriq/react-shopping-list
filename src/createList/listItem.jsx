@@ -8,7 +8,7 @@ import ListItemFooter from './listItemFooter'
 const ListItem = props => (
     <CustomCard
         link='#'
-        image='https://images2.minutemediacdn.com/image/upload/c_fill,g_auto,h_1248,w_2220/f_auto,q_auto,w_1100/v1555306143/shape/mentalfloss/istock_43355764_small.jpg'
+        image={props.item.img}
         containerClass='list-item'
         footer={
             <ListItemFooter

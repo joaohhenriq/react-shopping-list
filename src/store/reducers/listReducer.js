@@ -18,15 +18,6 @@ export default function listReducer(state = INITIAL_STATE, action) {
             return {
                 ...state,
                 list: action.list,
-                items: [
-                    ...state.items,
-                    {
-                        ...action.product,
-                        total: getItemTotal(action.product),
-                        id: uuidv1(),
-                        checked: false
-                    }
-                ]
             }
         case Types.DELETE_PRODUCT:
             return {
@@ -44,6 +35,21 @@ export default function listReducer(state = INITIAL_STATE, action) {
                 ...state,
                 list: action.list,
                 items: updateProduct(state.items, action.product)
+            }
+        case Types.GET_IMAGE_SUCCESS:
+        case Types.GET_IMAGE_FAILURE:
+            return {
+                ...state,
+                items: [
+                    ...state.items,
+                    {
+                        ...action.product,
+                        total: getItemTotal(action.product),
+                        id: uuidv1(),
+                        checked: false,
+                        img: action.img
+                    }
+                ]
             }
         default:
             return state
