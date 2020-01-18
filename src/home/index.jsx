@@ -17,6 +17,7 @@ const Home = props => (
                 total={props.total}
                 openedItems={props.openedItem}
                 closedItems={props.closedItems}
+                date={props.date}
             />
         }
 
@@ -28,6 +29,7 @@ const mapStateToProps = state => ({
     total: getListTotal(state),
     openedItem: getOpenedItems(state),
     closedItems: getClosedItems(state),
+    date: state.list.date
 })
 
 const mapDispatchToProps = dispatch => bindActionCreators(ListActions, dispatch)
